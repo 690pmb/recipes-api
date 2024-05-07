@@ -1,0 +1,4 @@
+spring:
+  liquibase.contexts: dev
+management:
+  endpoint.health.show-details: WHEN_AUTHORIZED
