@@ -21,7 +21,7 @@
 		<kotlin.version>1.9.23</kotlin.version>
         <mapstruct.version>1.5.5.Final</mapstruct.version>
         <springdoc.version>1.7.0</springdoc.version>
-        <git-code-format-maven-plugin.version>4.2</git-code-format-maven-plugin.version>
+        <git-code-format-maven-plugin.version>4.3</git-code-format-maven-plugin.version>
 	</properties>
 
 	<dependencies>
