@@ -57,3 +57,66 @@ To run your existing tests in a native image, run the following goal:
 ```
 $ ./mvnw test -PnativeTest
 ```
+
+---
+## Recettes de cuisine
+
+Site web pwa pour lister et rechercher dans les recettes de cuisine
+
+### Rechercher des recettes de cuisine par:
+
+- type: plat, entrée, crudité, soupe, quiche, dessert, gâteau.. => hiérarchie + paramétrable
+- difficulté: facile ou complexe..
+- temps: long ou rapide
+- saison: été, hiver
+- robot ou non
+- végétarien ou non
+- nombre de part
+- pour enfant ou pas
+- testé ou pas => note et photo ?
+- par ingrédient principal: haricot rouge, pois chiche..
+- "nutriscore"
+- repas de fête, du soir, pour profiter... => label, tag
+- dans le titre
+
+### Détails:
+
+- recette pdf, jpg, lien (marmiton) ou texte (moulinex) => lecteur embarqué
+- description: note perso, lien..
+- note si testé
+- photo si testé
+
+### Back office:
+
+- se loguer => réutiliser weather
+- Même app
+- créer/modifier une recette
+- éditer les hiérarchies de type
+- mobile
+- un tenant par user
+- thème jaune
+
+### Stack:
+
+- api kotlin 21 & spring boot 3
+- angular 17 + Material
+- postgresql + elastic
+- minio
+
+### API
+
+- Hiérarchie crud
+- recette crud
+- crud
+- recette search
+- authentification => uniquement put/post/delete
+    - user api indépendante
+    - un utilisateur avec une liste d'app
+    - crud user
+    - crud app
+    - link user with app
+- stockage des fichiers dans minio, des recettes dans elasticsearh et des user dans postgres
+
+Stocker en bdd les recettes, dans un s3 les documents  
+Une api pour le crud et l'authentification  
+une app front pour les lister et les administrer
