@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+	<changeSet id="20240904-1" author="PMB">
+
+		<createTable tableName="recipe">
+			<column name="id" type="bigint" autoIncrement="true">
+				<constraints primaryKey="true" nullable="false"/>
+			</column>
+			<column name="title" type="VARCHAR(255)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="difficulty" type="VARCHAR(70)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="duration" type="integer">
+				<constraints nullable="false"/>
+			</column>
+			<column name="season" type="VARCHAR(20)"/>
+			<column name="nutriscore" type="VARCHAR(1)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="person_count" type="integer">
+				<constraints nullable="false"/>
+			</column>
+			<column name="link" type="VARCHAR(512)"/>
+			<column name="description" type="TEXT"/>
+		</createTable>
+
+	</changeSet>
+
+</databaseChangeLog>

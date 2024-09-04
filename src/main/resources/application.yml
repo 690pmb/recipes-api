@@ -2,9 +2,8 @@ spring:
   application.name: recipes-api
   threads.virtual.enabled: true
   datasource:
-    driver-class-name: org.mariadb.jdbc.Driver
-    username: root
-    password: verysecret
+    username: myuser
+    password: secret
   liquibase:
     database-change-log-lock-table: RECIPES_DATABASECHANGELOGLOCK
     database-change-log-table: RECIPES_DATABASECHANGELOG
@@ -17,9 +16,9 @@ spring:
         implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
     show-sql: false
   jackson.time-zone: Europe/Paris
-management:
-  endpoints.web.exposure.include: "*"
-  endpoints.jmx.exposure.exclude: "*"
+management.endpoints:
+  web.exposure.include: "*"
+  jmx.exposure.exclude: "*"
 
 springdoc:
   api-docs.path: /api-docs

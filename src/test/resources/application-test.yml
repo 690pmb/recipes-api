@@ -1,0 +1,12 @@
+spring:
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:h2:mem:recipes
+    username: sa
+    password:
+  liquibase.enabled: false
+
+logging:
+  level:
+    ROOT: INFO
+    pmb.recipes: DEBUG
