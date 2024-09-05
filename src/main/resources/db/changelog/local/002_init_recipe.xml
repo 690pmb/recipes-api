@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+    <changeSet id="20240904-2" author="PMB" context="local">
+
+		<insert tableName="recipe">
+			<column name="title" value="Tarte au pomme"/>
+			<column name="difficulty" value="EASY"/>
+			<column name="duration" value="30"/>
+			<column name="season" value="WINTER"/>
+			<column name="nutriscore" value="D"/>
+			<column name="person_count" value="6"/>
+			<column name="link" value="https://marmiton.com/tarte-aux-pomme-maison"/>
+			<column name="description" value="Ceci est une tarte"/>
+		</insert>
+
+    </changeSet>
+
+</databaseChangeLog>
