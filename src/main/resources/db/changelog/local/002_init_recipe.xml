@@ -8,14 +8,22 @@
 		<insert tableName="recipe">
 			<column name="title" value="Tarte au pomme"/>
 			<column name="difficulty" value="EASY"/>
-			<column name="duration" value="30"/>
-			<column name="season" value="WINTER"/>
+			<column name="preparation_time" value="30"/>
+			<column name="cooking_time" value="50"/>
 			<column name="nutriscore" value="D"/>
 			<column name="person_count" value="6"/>
 			<column name="link" value="https://marmiton.com/tarte-aux-pomme-maison"/>
 			<column name="description" value="Ceci est une tarte"/>
 		</insert>
 
+        <insert tableName="season">
+            <column name="recipe" value="1" />
+            <column name="name" value="WINTER" />
+        </insert>
+        <insert tableName="season">
+            <column name="recipe" value="1" />
+            <column name="name" value="AUTUMN" />
+        </insert>
     </changeSet>
 
 </databaseChangeLog>

@@ -1,15 +1,17 @@
-package pmb.recipe.domain.model;
+package pmb.recipes.domain.model;
 
+import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Table;
-import pmb.recipes.domain.model.Difficulty;
-import pmb.recipes.domain.model.Season;
+import java.util.List;
 
 @Entity
 @Table(name = "recipe")
@@ -26,11 +28,23 @@ public class Recipe {
   @Enumerated(EnumType.STRING)
   private Difficulty difficulty;
 
-  @Column(nullable = false)
-  private Integer duration;
+  @Column(name = "preparation_time", nullable = false)
+  private Integer preparationTime;
 
+  @Column(name = "cooking_time")
+  private Integer cookingTime;
+
+  @Column(nullable = false)
   @Enumerated(EnumType.STRING)
-  private Season season;
+  private Nutriscore nutriscore;
+
+  @Column(name = "name")
+  @Enumerated(EnumType.STRING)
+  @CollectionTable(
+      name = "season",
+      joinColumns = @JoinColumn(name = "recipe", referencedColumnName = "id"))
+  @ElementCollection(targetClass = Season.class)
+  private List<Season> seasons;
 
   @Column(name = "person_count", nullable = false)
   private Integer personCount;
@@ -63,20 +77,36 @@ public class Recipe {
     this.difficulty = difficulty;
   }
 
-  public Integer getDuration() {
-    return duration;
+  public Integer getPreparationTime() {
+    return preparationTime;
   }
 
-  public void setDuration(final Integer duration) {
-    this.duration = duration;
+  public void setPreparationTime(final Integer preparationTime) {
+    this.preparationTime = preparationTime;
   }
 
-  public Season getSeason() {
-    return season;
+  public Integer getCookingTime() {
+    return cookingTime;
   }
 
-  public void setSeason(final Season season) {
-    this.season = season;
+  public void setCookingTime(final Integer cookingTime) {
+    this.cookingTime = cookingTime;
+  }
+
+  public Nutriscore getNutriscore() {
+    return nutriscore;
+  }
+
+  public void setNutriscore(final Nutriscore nutriscore) {
+    this.nutriscore = nutriscore;
+  }
+
+  public List<Season> getSeasons() {
+    return seasons;
+  }
+
+  public void setSeasons(final List<Season> seasons) {
+    this.seasons = seasons;
   }
 
   public Integer getPersonCount() {

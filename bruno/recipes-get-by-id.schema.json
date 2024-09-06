@@ -1,0 +1,45 @@
+{
+  "$id": "https://example.com/recipe.schema.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "title": {
+      "type": "string"
+    },
+    "difficulty": {
+      "type": "string",
+      "enum": ["EASY", "MEDIUM", "HARD", "LIGHT", "EXTREME"]
+    },
+    "nutriscore": {
+      "type": "string",
+      "enum": ["A", "B", "C", "D", "E"]
+    },
+    "preparationTime": {
+      "type": "integer"
+    },
+    "cookingTime": {
+      "type": "integer"
+    },
+    "seasons": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["WINTER", "SPRING", "SUMMER", "AUTUMN"]
+      }
+    },
+    "personCount": {
+      "type": "integer"
+    },
+    "link": {
+      "type": "string",
+      "pattern": "https:\/\/.*\\..*"
+    },
+    "description": {
+      "type": "string"
+    }
+  },
+  "required": ["id", "title", "difficulty", "nutriscore", "preparationTime", "cookingTime", "seasons", "personCount", "link", "description"]
+}

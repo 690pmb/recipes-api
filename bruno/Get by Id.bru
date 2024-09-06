@@ -1,0 +1,64 @@
+meta {
+  name: Get by Id
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{url}}/recipes/{{id}}
+  body: none
+  auth: none
+}
+
+script:pre-request {
+  bru.setVar("recipe_ids", [1, 5, "test"]);
+  if (bru.getVar("id") == undefined) {
+    bru.setVar("id", bru.getVar("recipe_ids")[0]);
+  }
+  console.log("Get by Id: " + bru.getVar("id"));
+  
+}
+
+script:post-response {
+  const ids = bru.getVar("recipe_ids");
+  const index = ids.indexOf(bru.getVar("id")) + 1;
+  if(index < ids.length){
+    bru.setVar("id", ids[index]);
+    bru.setNextRequest("Get by Id");
+  }
+}
+
+tests {
+  const fs = require('fs');
+  const path = require('path');
+  const cwd = bru.cwd();
+  const Ajv = require('ajv');
+  const ajv = new Ajv({
+    allErrors: true,
+    verbose: true
+  });
+  
+  const id = req.url.split('/').pop();
+  switch (id) {
+    case "1":
+      expect(res.status).to.equal(200);
+      const schemaPath = path.join(bru.cwd(), 'recipes-get-by-id.schema.json');
+      test("should be a valid JSON", function() {
+        const valid = ajv.validate(require(schemaPath), res.body);
+        if (!valid) console.error(ajv.errors);
+        expect(valid).to.be.true;      
+      });
+      break;
+    case "5":
+      expect(res.status).to.equal(404);
+      expect(res.body).to.equals("Recipe with id '5' not found");
+      break;
+    case "test":
+      expect(res.status).to.equal(400);
+      expect(res.body).to.equals("Parameter 'id' doesn't match type definition, expected type: 'class java.lang.Long'");
+      break;
+    default:
+      console.error("Unknown response: " + id);
+      break;
+  }
+}
