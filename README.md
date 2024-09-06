@@ -3,48 +3,48 @@
 
 PWA website to list and search in cooking recipes
 
-### Features:
+### Model:
 
+#### V1
+- [x] difficulté: facile ou complexe.. => select
+- [x] temps préparation: long ou rapide => slider, step 5
+- [ ] temps de cuisson => slider, step 5
+- [x] saison: été, hiver => select
+- [x] nombre de part => input
+- [x] description (peut contenir des ajustements) => text
+- [x] "nutriscore" => select
+- [x] title => input
+
+#### V2
 - [ ] type: plat, entrée, crudité, soupe, quiche, dessert, gâteau.. => hiérarchie + paramétrable
-- [x] difficulté: facile ou complexe..
-- [x] temps: long ou rapide
-- [x] saison: été, hiver
-- [x] nombre de part
 - [ ] note, rating
-- [ ] photo: de la recette (scraping ?), resultat 
-- [x] description (peut contenir des ajustements)
-- [ ] par ingrédient principal: haricot rouge, pois chiche..
-- [x] "nutriscore"
-- [x] dans le titre
 - [ ] tag:
   - [ ] robot ou non
-  - [ ] végétarien ou non
+  - [ ] végétarien ou non, vegan
   - [ ] pour enfant ou pas
   - [ ] testé ou pas
   - [ ] repas de fête, du soir, pour profiter...
 
-### Détails:
+#### V3
+- [ ] photo: de la recette (scraping ?), du resultat 
+- [ ] par ingrédient principal: haricot rouge, pois chiche..
 
-- recette pdf, jpg, lien (marmiton) ou texte (moulinex) => lecteur embarqué
-- description: note perso, lien..
-- si testé (seulement si admin): popup pour ajouter une note, une photo et modifier la description
+### Details page:
+
+- Recipe: in pdf, jpg, link (marmiton) or text (moulinex) V1
+- embeded viewer (V3)
+- description: note perso, lien.. V1
+- si testé (seulement si admin): popup pour ajouter une note, une photo et modifier la description V2
 
 ### Back office:
 
-- se loguer => réutiliser weather
+- se loguer => réutiliser weather V3
 - Même app
-- créer/modifier une recette
-- éditer les hiérarchies de type
+- créer/modifier une recette V1
+- éditer les hiérarchies de type V2
 - mobile
-- un tenant par user
+- un tenant par user V3
 - thème jaune
-
-### Stack:
-
-- api java 21 & spring boot 3
-- angular 19 + Material
-- postgresql + elastic
-- minio
 
 ### Epic Roadmap
 - Basic Recipes API:
@@ -79,6 +79,31 @@ PWA website to list and search in cooking recipes
 - scraping ingredients
 - search on ingredients
 - Adds elastic search support: title, ingredients, description
+
+### Roadmap
+#### V1 (MVP)
+- API:
+  - main recipe fields
+  - basic search on it
+  - creation/edit/deletion
+  - Tests
+- BO
+  - List/search them => which fields on the table ?
+  - Details page: no pdf and jpg, only links
+  - Creation/Edit form
+  - Navigation
+  - UX theme
+  - Tests
+  - No: home page, auth, files, tag, rating
+#### V2
+- tag: use them on recipes and manage them
+- hierarchy: use them on recipes and manage them
+- personal rating
+#### V3
+- authentication for edition (admin)
+- store files
+- view files
+- scraping ingredient, search on them with elastic
 
 ### Technical Roadmap
 - Integration tests
