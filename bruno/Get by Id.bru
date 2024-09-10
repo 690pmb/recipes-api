@@ -11,7 +11,7 @@ get {
 }
 
 script:pre-request {
-  bru.setVar("recipe_ids", [1, 5, "test"]);
+  bru.setVar("recipe_ids", [1, 50, "test"]);
   if (bru.getVar("id") == undefined) {
     bru.setVar("id", bru.getVar("recipe_ids")[0]);
   }
@@ -42,16 +42,16 @@ tests {
   switch (id) {
     case "1":
       expect(res.status).to.equal(200);
-      const schemaPath = path.join(bru.cwd(), 'recipes-get-by-id.schema.json');
+      const schemaPath = path.join(bru.cwd(), 'recipe.schema.json');
       test("should be a valid JSON", function() {
         const valid = ajv.validate(require(schemaPath), res.body);
         if (!valid) console.error(ajv.errors);
-        expect(valid).to.be.true;      
+        expect(valid).to.be.true;
       });
       break;
-    case "5":
+    case "50":
       expect(res.status).to.equal(404);
-      expect(res.body).to.equals("Recipe with id '5' not found");
+      expect(res.body).to.equals("Recipe with id '50' not found");
       break;
     case "test":
       expect(res.status).to.equal(400);

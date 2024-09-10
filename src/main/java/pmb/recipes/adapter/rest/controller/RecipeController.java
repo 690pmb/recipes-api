@@ -1,9 +1,14 @@
 package pmb.recipes.adapter.rest.controller;
 
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import pmb.recipes.adapter.rest.dto.RecipeDto;
 import pmb.recipes.adapter.rest.exception.NotFoundException;
@@ -28,5 +33,11 @@ public class RecipeController {
         .getById(id)
         .orElseThrow(
             () -> new NotFoundException(String.format("Recipe with id '%s' not found", id)));
+  }
+
+  @PostMapping
+  @ResponseStatus(HttpStatus.CREATED)
+  public RecipeDto create(@RequestBody @Valid RecipeDto recipeDto) {
+    return recipeService.create(recipeDto);
   }
 }

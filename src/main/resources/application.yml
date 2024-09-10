@@ -19,7 +19,3 @@ spring:
 management.endpoints:
   web.exposure.include: "*"
   jmx.exposure.exclude: "*"
-
-springdoc:
-  api-docs.path: /api-docs
-  model-converters.pageable-converter.enabled: true

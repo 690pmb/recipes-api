@@ -1,8 +1,10 @@
 package pmb.recipes.domain.repository;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static pmb.recipes.utils.TestUtils.buildRecipe;
 
 import java.util.Optional;
 import org.junit.jupiter.api.Test;
@@ -42,5 +44,12 @@ class RecipeRepositoryTest {
         () -> assertEquals(2, actual.getSeasons().size()),
         () -> assertEquals(Season.SPRING, actual.getSeasons().get(0)),
         () -> assertEquals(Season.WINTER, actual.getSeasons().get(1)));
+  }
+
+  @Test
+  void create() {
+    Recipe recipe = buildRecipe();
+    Recipe saved = recipeRepository.save(recipe);
+    assertThat(saved).usingRecursiveComparison().isEqualTo(recipe);
   }
 }

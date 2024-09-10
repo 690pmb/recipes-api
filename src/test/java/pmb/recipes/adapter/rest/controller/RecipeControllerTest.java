@@ -8,11 +8,13 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static pmb.recipes.utils.TestUtils.buildRecipeDto;
+import static pmb.recipes.utils.TestUtils.readResponse;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.util.List;
 import java.util.Optional;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Nested;
@@ -22,12 +24,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import pmb.recipes.adapter.rest.dto.RecipeDto;
-import pmb.recipes.domain.model.Difficulty;
-import pmb.recipes.domain.model.Nutriscore;
-import pmb.recipes.domain.model.Season;
 import pmb.recipes.domain.service.RecipeService;
 import pmb.recipes.utils.ControllerTestRunner;
-import pmb.recipes.utils.TestUtils;
 
 @ControllerTestRunner(controller = RecipeController.class)
 public class RecipeControllerTest {
@@ -74,18 +72,7 @@ public class RecipeControllerTest {
     @Test
     void ok() throws Exception {
       Long id = 6L;
-      RecipeDto recipe =
-          new RecipeDto(
-              id,
-              "name",
-              Difficulty.HARD,
-              5,
-              10,
-              Nutriscore.D,
-              List.of(Season.AUTUMN, Season.SUMMER),
-              4,
-              "link",
-              "description");
+      RecipeDto recipe = buildRecipeDto(id);
 
       when(recipeService.getById(id)).thenReturn(Optional.of(recipe));
 
@@ -93,7 +80,7 @@ public class RecipeControllerTest {
           .usingRecursiveComparison()
           .isEqualTo(
               objectMapper.readValue(
-                  TestUtils.readResponse.apply(
+                  readResponse.apply(
                       mockMvc
                           .perform(
                               get("/recipes/{id}", String.valueOf(id))
@@ -103,5 +90,26 @@ public class RecipeControllerTest {
 
       verify(recipeService).getById(id);
     }
+  }
+
+  @Test
+  void create() throws Exception {
+    RecipeDto recipe = buildRecipeDto(null);
+    when(recipeService.create(recipe)).thenAnswer(a -> a.getArgument(0));
+
+    assertThat(recipe)
+        .usingRecursiveComparison()
+        .isEqualTo(
+            objectMapper.readValue(
+                readResponse.apply(
+                    mockMvc
+                        .perform(
+                            post("/recipes")
+                                .content(objectMapper.writeValueAsString(recipe))
+                                .contentType(MediaType.APPLICATION_JSON_VALUE))
+                        .andExpect(status().isCreated())),
+                RecipeDto.class));
+
+    verify(recipeService).create(any());
   }
 }

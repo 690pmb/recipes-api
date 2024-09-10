@@ -19,4 +19,8 @@ public class RecipeService {
   public Optional<RecipeDto> getById(Long id) {
     return recipeRepository.findById(id).map(recipeMapper::toDto);
   }
+
+  public RecipeDto create(RecipeDto recipeDto) {
+    return recipeMapper.toDto(recipeRepository.save(recipeMapper.toEntity(recipeDto)));
+  }
 }

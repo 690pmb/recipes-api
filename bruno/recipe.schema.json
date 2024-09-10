@@ -11,11 +11,23 @@
     },
     "difficulty": {
       "type": "string",
-      "enum": ["EASY", "MEDIUM", "HARD", "LIGHT", "EXTREME"]
+      "enum": [
+        "EASY",
+        "MEDIUM",
+        "HARD",
+        "LIGHT",
+        "EXTREME"
+      ]
     },
     "nutriscore": {
       "type": "string",
-      "enum": ["A", "B", "C", "D", "E"]
+      "enum": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E"
+      ]
     },
     "preparationTime": {
       "type": "integer"
@@ -27,7 +39,12 @@
       "type": "array",
       "items": {
         "type": "string",
-        "enum": ["WINTER", "SPRING", "SUMMER", "AUTUMN"]
+        "enum": [
+          "WINTER",
+          "SPRING",
+          "SUMMER",
+          "AUTUMN"
+        ]
       }
     },
     "personCount": {
@@ -41,5 +58,13 @@
       "type": "string"
     }
   },
-  "required": ["id", "title", "difficulty", "nutriscore", "preparationTime", "cookingTime", "seasons", "personCount", "link", "description"]
+  "required": [
+    "id",
+    "title",
+    "difficulty",
+    "nutriscore",
+    "preparationTime",
+    "personCount",
+    "description"
+  ]
 }
