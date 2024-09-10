@@ -113,3 +113,29 @@ PWA website to list and search in cooking recipes
 - elastic search
 - authentication
 - minio
+
+## Integration tests
+They are written using the tool [Bruno](https://docs.usebruno.com/).  
+And [Xunit Viewer](https://github.com/lukejpreston/xunit-viewer) to generate a report.  
+They are located in the [bruno folder](./bruno).  
+#### Getting started
+To install Bruno and Xunit Viewer:
+```shell
+npm install -g @usebruno/cli
+npm i -g xunit-viewer
+```
+To run tests on the _Local_ environment and generate the html report:
+```shell
+cd bruno
+bru run --env Local --output results.xml -f junit
+xunit-viewer -r results.xml -o test-report.html
+```
+#### Organization
+In the _bruno_folder_ you will find:
+- _bruno.json_ Bruno configuration file
+- _collection_: configuration for the collection
+- for each request:
+  - bru files: the request to send
+  - schema json files: json schema to validate responses
+- report folder
+- environments folder: configuration for each environment (_Local_ and _Dev_)

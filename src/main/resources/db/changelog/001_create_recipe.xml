@@ -4,7 +4,6 @@
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
 
 	<changeSet id="20240904-1" author="PMB">
-
 		<createTable tableName="recipe">
 			<column name="id" type="bigint" autoIncrement="true">
 				<constraints primaryKey="true" nullable="false"/>
@@ -15,10 +14,10 @@
 			<column name="difficulty" type="VARCHAR(70)">
 				<constraints nullable="false"/>
 			</column>
-			<column name="duration" type="integer">
+			<column name="preparation_time" type="integer">
 				<constraints nullable="false"/>
 			</column>
-			<column name="season" type="VARCHAR(20)"/>
+			<column name="cooking_time" type="integer"/>
 			<column name="nutriscore" type="VARCHAR(1)">
 				<constraints nullable="false"/>
 			</column>
@@ -29,6 +28,17 @@
 			<column name="description" type="TEXT"/>
 		</createTable>
 
-	</changeSet>
+        <createTable tableName="season">
+            <column name="recipe" type="bigint">
+                <constraints nullable="false" />
+            </column>
+            <column name="name" type="VARCHAR(20)">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint baseColumnNames="recipe" baseTableName="season"
+                                 constraintName="fk_recipe_season" referencedColumnNames="id" referencedTableName="recipe" />
+    </changeSet>
 
 </databaseChangeLog>
