@@ -1,14 +1,17 @@
 package pmb.recipes.domain.service;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 import static pmb.recipes.domain.model.Nutriscore.A;
+import static pmb.recipes.utils.TestUtils.buildRecipe;
+import static pmb.recipes.utils.TestUtils.buildRecipeDto;
 
-import java.util.List;
 import java.util.Optional;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
@@ -36,18 +39,8 @@ class RecipeServiceTest {
 
   @Test
   void getById() {
-    Recipe recipe = new Recipe();
+    Recipe recipe = buildRecipe();
     recipe.setId(56L);
-    recipe.setTitle("title");
-    recipe.setDescription("description");
-    recipe.setNutriscore(A);
-    recipe.setPreparationTime(5);
-    recipe.setCookingTime(10);
-    recipe.setPersonCount(4);
-    recipe.setDifficulty(Difficulty.EASY);
-    recipe.setSeasons(List.of(Season.SPRING, Season.SUMMER));
-    recipe.setLink("link");
-
     when(recipeRepository.findById(56L)).thenReturn(Optional.of(recipe));
 
     Optional<RecipeDto> result = recipeService.getById(56L);
@@ -69,5 +62,16 @@ class RecipeServiceTest {
         () -> assertEquals(Season.SUMMER, actual.seasons().get(1)));
 
     verify(recipeRepository).findById(56L);
+  }
+
+  @Test
+  void create() {
+    RecipeDto recipeDto = buildRecipeDto(null);
+    when(recipeRepository.save(any())).thenAnswer(a -> a.getArgument(0));
+
+    RecipeDto saved = recipeService.create(recipeDto);
+
+    assertThat(saved).usingRecursiveComparison().isEqualTo(recipeDto);
+    verify(recipeRepository).save(any());
   }
 }

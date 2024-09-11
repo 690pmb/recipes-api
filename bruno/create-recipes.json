@@ -1,0 +1,276 @@
+[
+  {
+    "title": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sodales velit sed justo lobortis, sed ultrices nunc lobortis. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nam non mi lacus. Etiam luctus enim est, venenatis ornare massa nec.",
+    "difficulty": "HARD",
+    "preparationTime": 30,
+    "cookingTime": 50,
+    "nutriscore": "C",
+    "seasons": [
+      "WINTER",
+      "AUTUMN",
+      "SPRING",
+      "SUMMER"
+    ],
+    "personCount": 4,
+    "link": "https://Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec tellus orci, volutpat et egestas sed, elementum porttitor neque. Etiam dictum, odio sed lobortis pulvinar, nibh tortor vestibulum ante, eu dictum erat ex in enim. Nullam ornare pellentesque velit eget suscipit. Vestibulum sollicitudin molestie finibus. Curabitur accumsan imperdiet rutrum. Praesent elementum eleifend diam, eget posuere libero. Duis tristique sagittis tristique. Sed viverra purus augue, ut molestie purus dictum quis velit.",
+    "description": "Vivamus porta euismod diam. Sed lorem risus, venenatis in nisi et, pharetra maximus magna. Suspendisse quam tellus, sodales ut semper at, tempor sed nisi. Vestibulum suscipit in urna sed tincidunt. Sed pretium arcu dui, ultrices porttitor elit scelerisque sit amet. Nulla ac ultricies risus, vel semper tellus. Phasellus quam erat, auctor at mauris vitae, convallis aliquam risus. Duis elit mauris, facilisis nec erat vel, facilisis consectetur leo. Vivamus pellentesque dignissim euismod. Proin condimentum, dolor vitae porta tincidunt, diam sapien elementum sem, a malesuada nisl dolor non leo. Nullam vel ultrices lorem. Nam vitae lacinia orci, quis varius nibh. Donec sodales, ante a porttitor consequat, libero velit hendrerit ipsum, at consequat est leo ut mi. Ut eu elit convallis, dictum lectus ut, malesuada risus. Proin in molestie enim, eu pretium massa. Integer sollicitudin nibh eget enim viverra, et aliquet diam condimentum."
+  },
+  {
+    "title": "L",
+    "difficulty": "EXTREME",
+    "preparationTime": 1,
+    "nutriscore": "E",
+    "personCount": 4,
+    "description": "C"
+  },
+  {
+    "id": 9,
+    "title": "Tarte au pomme",
+    "difficulty": "EASY",
+    "preparationTime": 30,
+    "cookingTime": 50,
+    "nutriscore": "D",
+    "seasons": [
+      "WINTER",
+      "AUTUMN"
+    ],
+    "personCount": 6,
+    "link": "https://marmiton.com/tarte-aux-pomme-maison",
+    "description": "Ceci est une tarte",
+    "_field": "id"
+  },
+  {
+    "title": "",
+    "difficulty": "EASY",
+    "preparationTime": 30,
+    "cookingTime": 50,
+    "nutriscore": "D",
+    "seasons": [
+      "WINTER",
+      "AUTUMN"
+    ],
+    "personCount": 6,
+    "link": "https://marmiton.com/tarte-aux-pomme-maison",
+    "description": "Ceci est une tarte",
+    "_field": "title"
+  },
+  {
+    "title": "L",
+    "preparationTime": 1,
+    "cookingTime": 1,
+    "nutriscore": "E",
+    "seasons": [
+      "WINTER"
+    ],
+    "personCount": 4,
+    "link": "https://f.f",
+    "description": "C",
+    "_field": "difficulty"
+  },
+  {
+    "title": "L",
+    "difficulty": "EXTREME",
+    "preparationTime": 0,
+    "cookingTime": 1,
+    "nutriscore": "E",
+    "seasons": [
+      "WINTER"
+    ],
+    "personCount": 4,
+    "link": "https://f.f",
+    "description": "C",
+    "_field": "preparationTime"
+  },
+  {
+    "title": "L",
+    "difficulty": "EXTREME",
+    "cookingTime": 1,
+    "nutriscore": "E",
+    "seasons": [
+      "WINTER"
+    ],
+    "personCount": 4,
+    "link": "https://f.f",
+    "description": "C",
+    "_field": "preparationTime"
+  },
+  {
+    "title": "L",
+    "difficulty": "EXTREME",
+    "preparationTime": -21,
+    "cookingTime": 1,
+    "nutriscore": "E",
+    "seasons": [
+      "WINTER"
+    ],
+    "personCount": 4,
+    "link": "https://f.f",
+    "description": "C",
+    "_field": "preparationTime"
+  },
+  {
+    "title": "L",
+    "difficulty": "EXTREME",
+    "preparationTime": 1,
+    "cookingTime": 0,
+    "nutriscore": "E",
+    "seasons": [
+      "WINTER"
+    ],
+    "personCount": 4,
+    "link": "https://f.f",
+    "description": "C",
+    "_field": "cookingTime"
+  },
+  {
+    "title": "L",
+    "difficulty": "LIGHT",
+    "preparationTime": 1,
+    "cookingTime": -1,
+    "nutriscore": "A",
+    "seasons": [
+      "WINTER"
+    ],
+    "personCount": 4,
+    "link": "https://f.f",
+    "description": "C",
+    "_field": "cookingTime"
+  },
+  {
+    "title": "L",
+    "difficulty": "EXTREME",
+    "preparationTime": 1,
+    "cookingTime": 1,
+    "seasons": [
+      "WINTER"
+    ],
+    "personCount": 4,
+    "link": "https://f.f",
+    "description": "C",
+    "_field": "nutriscore"
+  },
+  {
+    "title": "L",
+    "difficulty": "MEDIUM",
+    "preparationTime": 1,
+    "cookingTime": 1,
+    "nutriscore": "B",
+    "seasons": [
+      "WINTER"
+    ],
+    "personCount": 0,
+    "link": "https://f.f",
+    "description": "C",
+    "_field": "personCount"
+  },
+  {
+    "title": "L",
+    "difficulty": "EASY",
+    "preparationTime": 1,
+    "cookingTime": 1,
+    "nutriscore": "C",
+    "seasons": [
+      "WINTER"
+    ],
+    "personCount": -50,
+    "link": "https://f.f",
+    "description": "C",
+    "_field": "personCount"
+  },
+  {
+    "title": "L",
+    "difficulty": "EXTREME",
+    "preparationTime": 1,
+    "cookingTime": 1,
+    "nutriscore": "E",
+    "seasons": [
+      "WINTER"
+    ],
+    "link": "https://f.f",
+    "description": "C",
+    "_field": "personCount"
+  },
+  {
+    "title": "L",
+    "difficulty": "EXTREME",
+    "preparationTime": 1,
+    "cookingTime": 1,
+    "nutriscore": "E",
+    "seasons": [
+      "WINTER"
+    ],
+    "personCount": 4,
+    "link": "http://f.f",
+    "description": "C",
+    "_field": "link"
+  },
+  {
+    "title": "L",
+    "difficulty": "EXTREME",
+    "preparationTime": 1,
+    "cookingTime": 1,
+    "nutriscore": "E",
+    "seasons": [
+      "WINTER"
+    ],
+    "personCount": 4,
+    "link": "https://ff",
+    "description": "C",
+    "_field": "link"
+  },
+  {
+    "title": "L",
+    "difficulty": "EXTREME",
+    "preparationTime": 1,
+    "cookingTime": 1,
+    "nutriscore": "E",
+    "seasons": [
+      "WINTER"
+    ],
+    "personCount": 4,
+    "link": "https://ff.",
+    "description": "C",
+    "_field": "link"
+  },
+  {
+    "title": "L",
+    "difficulty": "EXTREME",
+    "preparationTime": 1,
+    "cookingTime": 1,
+    "nutriscore": "E",
+    "seasons": [
+      "WINTER"
+    ],
+    "personCount": 4,
+    "link": "https://f.f",
+    "description": " ",
+    "_field": "description"
+  },
+  {
+    "title": "L",
+    "difficulty": "EXTREME",
+    "preparationTime": 1,
+    "cookingTime": 1,
+    "nutriscore": "E",
+    "seasons": [
+      "WINTER"
+    ],
+    "personCount": 4,
+    "link": "https://f.f",
+    "description": "",
+    "_field": "description"
+  },
+  {
+    "title": "L",
+    "difficulty": "EXTREME",
+    "preparationTime": 1,
+    "cookingTime": 1,
+    "nutriscore": "E",
+    "seasons": [
+      "WINTER"
+    ],
+    "personCount": 4,
+    "link": "https://f.f",
+    "_field": "description"
+  }
+]

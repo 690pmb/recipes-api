@@ -1,0 +1,80 @@
+meta {
+  name: Create
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{url}}/recipes
+  body: json
+  auth: none
+}
+
+body:json {
+  {{body}}
+}
+
+script:pre-request {
+  const fs = require('fs');
+  const path = require('path');
+  const cwd = bru.cwd();
+  
+  if (bru.getVar("current_id") === undefined) {
+    current_id = 2;
+  } else {
+    current_id = bru.getVar("current_id") + 1;
+  }
+  bru.setVar("current_id", current_id);
+  
+  const data = fs.readFileSync(path.join(bru.cwd(), 'create-recipes.json'), 'utf8');
+  const jsonData = JSON.parse(data);
+  if(jsonData.length===(current_id-1)) {
+  bru.setVar("stop", "true");
+  } else {
+    bru.setVar("stop", "false");
+  }
+  const request = jsonData[current_id-2];
+  bru.setVar("body", JSON.stringify(request));
+  // only first 2 requests are valid
+  if(current_id>3){
+    bru.setVar("field", request._field);
+  }
+  console.log("Create recipe: nb:",current_id,", field:",request._field);
+  
+}
+
+script:post-response {
+  if(bru.getVar("stop") === "false"){
+    bru.setNextRequest("Create");
+  }
+}
+
+tests {
+  const fs = require('fs');
+  const path = require('path');
+  const cwd = bru.cwd();
+  const Ajv = require('ajv');
+  const ajv = new Ajv({
+    allErrors: true,
+    verbose: true
+  });
+  
+  const field = bru.getVar("field");
+  // if not field on error declared, then it should be successfull
+  if (field == undefined) {
+    expect(res.status).to.equal(201);
+    const schemaPath = path.join(bru.cwd(), 'recipe.schema.json');
+    test("should be a valid JSON", () => {
+      const valid = ajv.validate(require(schemaPath), res.body);
+      if (!valid) {
+        console.log(res.body);
+        console.error(ajv.errors);
+      }
+      expect(valid).to.be.true;
+    });
+  } else {
+    expect(res.status).to.equal(400);
+    test("there should be only one field on error", () => expect(/.*with \\d+ errors.*/.test(res.body)).to.be.false);
+    test("expected field should be on error", () => expect(new RegExp(".*Field error in object 'recipeDto' on field '" + field).test(res.body)).to.be.true);
+  }
+}
