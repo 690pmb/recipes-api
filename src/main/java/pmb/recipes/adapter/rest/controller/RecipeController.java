@@ -3,6 +3,7 @@ package pmb.recipes.adapter.rest.controller;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -39,5 +40,11 @@ public class RecipeController {
   @ResponseStatus(HttpStatus.CREATED)
   public RecipeDto create(@RequestBody @Valid RecipeDto recipeDto) {
     return recipeService.create(recipeDto);
+  }
+
+  @DeleteMapping("/{id}")
+  @ResponseStatus(HttpStatus.NO_CONTENT)
+  public void delete(@PathVariable Long id) {
+    recipeService.delete(id);
   }
 }

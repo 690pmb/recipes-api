@@ -15,11 +15,12 @@ body:json {
 }
 
 script:pre-request {
+  console.log("#############");
   const fs = require('fs');
   const path = require('path');
   const cwd = bru.cwd();
   
-  if (bru.getVar("current_id") === undefined) {
+  if (!bru.hasVar("current_id")) {
     current_id = 2;
   } else {
     current_id = bru.getVar("current_id") + 1;
@@ -35,12 +36,8 @@ script:pre-request {
   }
   const request = jsonData[current_id-2];
   bru.setVar("body", JSON.stringify(request));
-  // only first 2 requests are valid
-  if(current_id>3){
-    bru.setVar("field", request._field);
-  }
-  console.log("Create recipe: nb:",current_id,", field:",request._field);
-  
+  bru.setVar("field", request._field);
+  console.log("Create recipe: nb:", current_id,", field:", request._field);  
 }
 
 script:post-response {
@@ -60,7 +57,7 @@ tests {
   });
   
   const field = bru.getVar("field");
-  // if not field on error declared, then it should be successfull
+  // if no _field on error declared, then it should be successfull
   if (field == undefined) {
     expect(res.status).to.equal(201);
     const schemaPath = path.join(bru.cwd(), 'recipe.schema.json');
@@ -76,5 +73,12 @@ tests {
     expect(res.status).to.equal(400);
     test("there should be only one field on error", () => expect(/.*with \\d+ errors.*/.test(res.body)).to.be.false);
     test("expected field should be on error", () => expect(new RegExp(".*Field error in object 'recipeDto' on field '" + field).test(res.body)).to.be.true);
+  }
+  if(bru.getVar("stop") === "true"){
+    // clean up variables when done looping
+    bru.deleteVar("current_id")
+    bru.deleteVar("stop")
+    bru.deleteVar("body")
+    bru.deleteVar("field")
   }
 }

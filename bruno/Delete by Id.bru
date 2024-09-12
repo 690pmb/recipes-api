@@ -1,0 +1,50 @@
+meta {
+  name: Delete by Id
+  type: http
+  seq: 4
+}
+
+delete {
+  url: {{url}}/recipes/{{id}}
+  body: none
+  auth: none
+}
+
+script:pre-request {
+  console.log("#############");
+  const delete_ids = [2, 50, "test"];
+  bru.setVar("delete_ids", delete_ids);
+  if (!bru.hasVar("id")) {
+    bru.setVar("id", delete_ids[0]);
+  }
+  console.log("Delete by Id: " + bru.getVar("id"));
+  
+}
+
+script:post-response {
+  const ids = bru.getVar("delete_ids");
+  const index = ids.indexOf(bru.getVar("id")) + 1;
+  if(index < ids.length){
+    bru.setVar("id", ids[index]);
+    bru.setNextRequest("Delete by Id");
+  } else {
+    bru.deleteVar("delete_ids")
+    bru.deleteVar("id")
+  }
+}
+
+tests {
+  const id = req.url.split('/').pop();
+  switch (id) {
+    case "2":
+    case "50":
+      expect(res.status).to.equal(204);
+      break;
+    case "test":
+      expect(res.status).to.equal(400);
+      break;
+    default:
+      console.error("Unknown response: " + id);
+      break;
+  }
+}

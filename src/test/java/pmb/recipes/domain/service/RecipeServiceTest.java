@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
@@ -73,5 +74,12 @@ class RecipeServiceTest {
 
     assertThat(saved).usingRecursiveComparison().isEqualTo(recipeDto);
     verify(recipeRepository).save(any());
+  }
+
+  @Test
+  void delete() {
+    doNothing().when(recipeRepository).deleteById(1L);
+    recipeService.delete(1L);
+    verify(recipeRepository).deleteById(1L);
   }
 }
