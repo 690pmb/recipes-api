@@ -11,8 +11,9 @@ get {
 }
 
 script:pre-request {
+  console.log("#############");
   bru.setVar("recipe_ids", [1, 50, "test"]);
-  if (bru.getVar("id") == undefined) {
+  if (!bru.hasVar("id")) {
     bru.setVar("id", bru.getVar("recipe_ids")[0]);
   }
   console.log("Get by Id: " + bru.getVar("id"));
@@ -25,6 +26,9 @@ script:post-response {
   if(index < ids.length){
     bru.setVar("id", ids[index]);
     bru.setNextRequest("Get by Id");
+  }else {
+    bru.deleteVar("recipe_ids")
+    bru.deleteVar("id")
   }
 }
 

@@ -1,0 +1,40 @@
+meta {
+  name: Clean up
+  type: http
+  seq: 1
+}
+
+delete {
+  url: {{url}}/recipes/{{id}}
+  body: none
+  auth: none
+}
+
+script:pre-request {
+  console.log("#############");
+  const fs = require('fs');
+  const path = require('path');
+  const cwd = bru.cwd();
+  
+  if (!bru.hasVar("id")) {
+  // we want to keep first recipe, inserted by application
+    current_id = 2;
+  } else {
+    current_id = bru.getVar("id") + 1;
+  }
+  bru.setVar("id", current_id);
+  
+  // deletes all recipes created by the "Create" requests
+  const data = JSON.parse(fs.readFileSync(path.join(bru.cwd(), 'create-recipes.json'), 'utf8')).filter(d=>d._field===undefined);
+  bru.setVar("stop", data.length===(current_id-1));
+  console.log("Clean up all recipes before testing", current_id);
+}
+
+script:post-response {
+  if(bru.getVar("stop") === false){
+    bru.setNextRequest("Clean up");
+  } else {
+    bru.deleteVar("id")
+    bru.deleteVar("stop")
+  }
+}

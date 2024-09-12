@@ -52,4 +52,11 @@ class RecipeRepositoryTest {
     Recipe saved = recipeRepository.save(recipe);
     assertThat(saved).usingRecursiveComparison().isEqualTo(recipe);
   }
+
+  @Test
+  void delete() {
+    assertTrue(recipeRepository.findById(1L).isPresent());
+    recipeRepository.deleteById(1L);
+    assertTrue(recipeRepository.findById(1L).isEmpty());
+  }
 }

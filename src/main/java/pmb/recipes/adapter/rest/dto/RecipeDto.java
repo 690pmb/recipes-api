@@ -13,7 +13,7 @@ import pmb.recipes.domain.model.Season;
 
 public record RecipeDto(
     @Null Long id,
-    @Size(min = 1, max = 255) @NotNull String title,
+    @Size(min = 1, max = 255) @NotBlank String title,
     @NotNull Difficulty difficulty,
     @NotNull @Positive Integer preparationTime,
     @Positive Integer cookingTime,

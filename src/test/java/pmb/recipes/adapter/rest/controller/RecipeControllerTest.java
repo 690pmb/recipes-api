@@ -3,10 +3,12 @@ package pmb.recipes.adapter.rest.controller;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -28,7 +30,7 @@ import pmb.recipes.domain.service.RecipeService;
 import pmb.recipes.utils.ControllerTestRunner;
 
 @ControllerTestRunner(controller = RecipeController.class)
-public class RecipeControllerTest {
+class RecipeControllerTest {
   @Autowired private MockMvc mockMvc;
   @Autowired private ObjectMapper objectMapper;
   @MockBean private RecipeService recipeService;
@@ -111,5 +113,17 @@ public class RecipeControllerTest {
                 RecipeDto.class));
 
     verify(recipeService).create(any());
+  }
+
+  @Test
+  void deleteById() throws Exception {
+    Long id = 6L;
+
+    doNothing().when(recipeService).delete(id);
+    mockMvc
+        .perform(delete("/recipes/{id}", id).contentType(MediaType.APPLICATION_JSON_VALUE))
+        .andExpect(status().isNoContent());
+
+    verify(recipeService).delete(id);
   }
 }

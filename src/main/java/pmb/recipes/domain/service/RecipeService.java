@@ -23,4 +23,8 @@ public class RecipeService {
   public RecipeDto create(RecipeDto recipeDto) {
     return recipeMapper.toDto(recipeRepository.save(recipeMapper.toEntity(recipeDto)));
   }
+
+  public void delete(Long id) {
+    recipeRepository.deleteById(id);
+  }
 }
