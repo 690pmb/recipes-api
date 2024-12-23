@@ -24,6 +24,12 @@ public class RecipeService {
     return recipeMapper.toDto(recipeRepository.save(recipeMapper.toEntity(recipeDto)));
   }
 
+  public Optional<RecipeDto> edit(RecipeDto recipeDto) {
+    return recipeRepository
+        .findById(recipeDto.id())
+        .map(r -> recipeMapper.toDto(recipeRepository.save(recipeMapper.toEntity(recipeDto))));
+  }
+
   public void delete(Long id) {
     recipeRepository.deleteById(id);
   }

@@ -77,6 +77,21 @@ class RecipeServiceTest {
   }
 
   @Test
+  void edit() {
+    Long id = 9L;
+    RecipeDto recipeDto = buildRecipeDto(id);
+
+    when(recipeRepository.findById(id)).thenReturn(Optional.of(new Recipe()));
+    when(recipeRepository.save(any())).thenAnswer(a -> a.getArgument(0));
+
+    Optional<RecipeDto> saved = recipeService.edit(recipeDto);
+
+    assertThat(saved.get()).usingRecursiveComparison().isEqualTo(recipeDto);
+    verify(recipeRepository).findById(id);
+    verify(recipeRepository).save(any());
+  }
+
+  @Test
   void delete() {
     doNothing().when(recipeRepository).deleteById(1L);
     recipeService.delete(1L);

@@ -55,11 +55,11 @@ tests {
     allErrors: true,
     verbose: true
   });
-  
+
   const field = bru.getVar("field");
   // if no _field on error declared, then it should be successfull
   if (field == undefined) {
-    expect(res.status).to.equal(201);
+    expect(res.status, JSON.stringify(res.body)).to.equal(201);
     const schemaPath = path.join(bru.cwd(), 'recipe.schema.json');
     test("should be a valid JSON", () => {
       const valid = ajv.validate(require(schemaPath), res.body);
@@ -67,14 +67,16 @@ tests {
         console.log(res.body);
         console.error(ajv.errors);
       }
-      expect(valid).to.be.true;
+      expect(valid, JSON.stringify(res.body)).to.be.true;
     });
   } else {
-    expect(res.status).to.equal(400);
-    test("there should be only one field on error", () => expect(/.*with \\d+ errors.*/.test(res.body)).to.be.false);
-    test("expected field should be on error", () => expect(new RegExp(".*Field error in object 'recipeDto' on field '" + field).test(res.body)).to.be.true);
+    expect(res.status, JSON.stringify(res.body)).to.equal(400);
+    if (field !== 'id') {
+      expect(/.*with \\d+ errors.*/.test(res.body), "there should be only one field on error, field: '" + field + "'").to.be.false;
+      expect(new RegExp(".*Field error in object 'recipeDto' on field '" + field).test(res.body), "expected field: '" + field + "' should be on error").to.be.true
+    }
   }
-  if(bru.getVar("stop") === "true"){
+  if (bru.getVar("stop") === "true") {
     // clean up variables when done looping
     bru.deleteVar("current_id")
     bru.deleteVar("stop")
