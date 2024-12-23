@@ -7,7 +7,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.3.3</version>
+        <version>3.4.1</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
@@ -19,8 +19,8 @@
 
     <properties>
         <java.version>21</java.version>
-        <mapstruct.version>1.6.0</mapstruct.version>
-        <springdoc.version>2.6.0</springdoc.version>
+        <mapstruct.version>1.6.3</mapstruct.version>
+        <springdoc.version>2.7.0</springdoc.version>
         <git-code-format-maven-plugin.version>5.3</git-code-format-maven-plugin.version>
         <problem-spring-web.version>0.29.1</problem-spring-web.version>
     </properties>
