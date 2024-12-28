@@ -1,0 +1,83 @@
+meta {
+  name: Edit
+  type: http
+  seq: 5
+}
+
+put {
+  url: {{url}}/recipes
+  body: json
+  auth: none
+}
+
+body:json {
+  {{body}}
+}
+
+script:pre-request {
+  console.log("#############");
+  const fs = require('fs');
+  const path = require('path');
+  const cwd = bru.cwd();
+
+  const data = fs.readFileSync(path.join(bru.cwd(), 'edit-recipes.json'), 'utf8');
+  const jsonData = JSON.parse(data);
+  const indexes = [0, 1, 2];
+  bru.setVar("indexes", indexes);
+  if (!bru.hasVar("index")) {
+    bru.setVar("index", indexes[0]);
+  }else{
+    bru.setVar("index", bru.getVar("index") + 1);
+  }
+  const index = bru.getVar("index");
+  bru.setVar("body", JSON.stringify(jsonData[index]));
+  console.log("Edit recipe: index:", index);  
+}
+
+script:post-response {
+  const indexes = bru.getVar("indexes");
+  const index = indexes.indexOf(bru.getVar("index"));
+  if(index < (indexes.length - 1) && index !== -1){
+    bru.setNextRequest("Edit");
+  } else {
+    bru.deleteVar("indexes");
+    bru.deleteVar("index");
+    bru.deleteVar("body");
+  }
+}
+
+tests {
+  const fs = require('fs');
+  const path = require('path');
+  const cwd = bru.cwd();
+  const Ajv = require('ajv');
+  const ajv = new Ajv({
+    allErrors: true,
+    verbose: true
+  });
+  
+  switch (bru.getVar("index")) { 
+    case 0:
+      expect(res.status, JSON.stringify(res.body)).to.equal(200);
+      const schemaPath = path.join(bru.cwd(), 'recipe.schema.json');
+      test("should be a valid JSON", () => {
+        const valid = ajv.validate(require(schemaPath), res.body);
+        if (!valid) {
+          console.log(res.body);
+          console.error(ajv.errors);
+        }
+        expect(valid).to.be.true;
+      });
+      expect(res.body.difficulty).to.equal('HARD');
+      expect(res.body.title).to.equal('Tarte aux pommes');
+      expect(res.body.preparationTime).to.equal(50);
+      expect(res.body.personCount).to.equal(8);
+      break;
+    case 1:
+      expect(res.status, JSON.stringify(res.body)).to.equal(404);
+    break;
+    case 2:
+      expect(res.status, JSON.stringify(res.body)).to.equal(400);
+    break;
+  }
+}

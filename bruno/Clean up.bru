@@ -10,12 +10,26 @@ delete {
   auth: none
 }
 
+assert {
+  res.status: eq 204
+}
+
 script:pre-request {
   console.log("#############");
   const fs = require('fs');
   const path = require('path');
   const cwd = bru.cwd();
   
+  // Delete all vars
+  bru.deleteVar('stop');
+  bru.deleteVar('current_id');
+  bru.deleteVar('body');
+  bru.deleteVar('field');
+  bru.deleteVar('delete_ids');
+  bru.deleteVar('index');
+  bru.deleteVar('indexes');
+  bru.deleteVar('recipe_ids');
+
   if (!bru.hasVar("id")) {
   // we want to keep first recipe, inserted by application
     current_id = 2;
@@ -26,7 +40,7 @@ script:pre-request {
   
   // deletes all recipes created by the "Create" requests
   const data = JSON.parse(fs.readFileSync(path.join(bru.cwd(), 'create-recipes.json'), 'utf8')).filter(d=>d._field===undefined);
-  bru.setVar("stop", data.length===(current_id-1));
+  bru.setVar("stop", data.length<=(current_id-1));
   console.log("Clean up all recipes before testing", current_id);
 }
 

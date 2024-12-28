@@ -12,7 +12,7 @@ import pmb.recipes.domain.model.Nutriscore;
 import pmb.recipes.domain.model.Season;
 
 public record RecipeDto(
-    @Null Long id,
+    @Null(groups = OnCreate.class) @NotNull(groups = OnEdit.class) Long id,
     @Size(min = 1, max = 255) @NotBlank String title,
     @NotNull Difficulty difficulty,
     @NotNull @Positive Integer preparationTime,

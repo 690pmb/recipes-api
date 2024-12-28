@@ -11,6 +11,7 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static pmb.recipes.utils.TestUtils.buildRecipeDto;
@@ -97,7 +98,7 @@ class RecipeControllerTest {
   @Test
   void create() throws Exception {
     RecipeDto recipe = buildRecipeDto(null);
-    when(recipeService.create(recipe)).thenAnswer(a -> a.getArgument(0));
+    when(recipeService.save(recipe)).thenAnswer(a -> a.getArgument(0));
 
     assertThat(recipe)
         .usingRecursiveComparison()
@@ -112,7 +113,52 @@ class RecipeControllerTest {
                         .andExpect(status().isCreated())),
                 RecipeDto.class));
 
-    verify(recipeService).create(any());
+    verify(recipeService).save(any());
+  }
+
+  @Nested
+  class Edit {
+
+    @Test
+    void not_found() throws Exception {
+      Long id = 6L;
+      RecipeDto recipe = buildRecipeDto(id);
+
+      when(recipeService.edit(recipe)).thenReturn(Optional.empty());
+
+      mockMvc
+          .perform(
+              put("/recipes")
+                  .content(objectMapper.writeValueAsString(recipe))
+                  .contentType(MediaType.APPLICATION_JSON_VALUE))
+          .andExpect(status().isNotFound())
+          .andExpect(jsonPath("$").value(equalTo("Recipe with id '6' not found")));
+
+      verify(recipeService).edit(recipe);
+    }
+
+    @Test
+    void ok() throws Exception {
+      Long id = 6L;
+      RecipeDto recipe = buildRecipeDto(id);
+
+      when(recipeService.edit(recipe)).thenReturn(Optional.of(recipe));
+
+      assertThat(recipe)
+          .usingRecursiveComparison()
+          .isEqualTo(
+              objectMapper.readValue(
+                  readResponse.apply(
+                      mockMvc
+                          .perform(
+                              put("/recipes")
+                                  .content(objectMapper.writeValueAsString(recipe))
+                                  .contentType(MediaType.APPLICATION_JSON_VALUE))
+                          .andExpect(status().isOk())),
+                  RecipeDto.class));
+
+      verify(recipeService).edit(recipe);
+    }
   }
 
   @Test

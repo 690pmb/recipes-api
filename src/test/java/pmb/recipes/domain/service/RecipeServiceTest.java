@@ -70,9 +70,24 @@ class RecipeServiceTest {
     RecipeDto recipeDto = buildRecipeDto(null);
     when(recipeRepository.save(any())).thenAnswer(a -> a.getArgument(0));
 
-    RecipeDto saved = recipeService.create(recipeDto);
+    RecipeDto saved = recipeService.save(recipeDto);
 
     assertThat(saved).usingRecursiveComparison().isEqualTo(recipeDto);
+    verify(recipeRepository).save(any());
+  }
+
+  @Test
+  void edit() {
+    Long id = 9L;
+    RecipeDto recipeDto = buildRecipeDto(id);
+
+    when(recipeRepository.findById(id)).thenReturn(Optional.of(new Recipe()));
+    when(recipeRepository.save(any())).thenAnswer(a -> a.getArgument(0));
+
+    Optional<RecipeDto> saved = recipeService.edit(recipeDto);
+
+    assertThat(saved.get()).usingRecursiveComparison().isEqualTo(recipeDto);
+    verify(recipeRepository).findById(id);
     verify(recipeRepository).save(any());
   }
 

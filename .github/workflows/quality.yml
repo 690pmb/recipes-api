@@ -15,9 +15,11 @@ concurrency:
 
 jobs:
   maven:
-    runs-on: self-hosted
+    runs-on: ubuntu-24.04
     steps:
       - uses: 69pmb/deploy/workflow/java-quality@main
+        with:
+          java-version: '21'
   deploy:
     if: github.ref_name == 'main'
     needs: maven

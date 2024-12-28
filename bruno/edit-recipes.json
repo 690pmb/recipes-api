@@ -1,0 +1,37 @@
+[
+  {
+    "id": 1,
+    "title": "Tarte aux pommes",
+    "difficulty": "HARD",
+    "preparationTime": 50,
+    "cookingTime": 50,
+    "nutriscore": "D",
+    "seasons": ["WINTER", "AUTUMN"],
+    "personCount": 8,
+    "link": "https://marmiton.com/tarte-aux-pomme-maison",
+    "description": "Ceci est une tarte"
+  },
+  {
+    "id": 150,
+    "title": "Tarte au pomme",
+    "difficulty": "EASY",
+    "preparationTime": 30,
+    "cookingTime": 50,
+    "nutriscore": "D",
+    "seasons": ["WINTER", "AUTUMN"],
+    "personCount": 6,
+    "link": "https://marmiton.com/tarte-aux-pomme-maison",
+    "description": "Ceci est une tarte"
+  },
+  {
+    "title": "Tarte au pomme",
+    "difficulty": "EASY",
+    "preparationTime": 30,
+    "cookingTime": 50,
+    "nutriscore": "D",
+    "seasons": ["WINTER", "AUTUMN"],
+    "personCount": 6,
+    "link": "https://marmiton.com/tarte-aux-pomme-maison",
+    "description": "Ceci est une tarte"
+  }
+]

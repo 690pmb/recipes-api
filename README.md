@@ -10,7 +10,7 @@ PWA website to list and search in cooking recipes
 
 - [x] difficulté: facile ou complexe.. => select
 - [x] temps préparation: long ou rapide => slider, step 5
-- [ ] temps de cuisson => slider, step 5
+- [x] temps de cuisson => slider, step 5
 - [x] saison: été, hiver => select
 - [x] nombre de part => input
 - [x] description (peut contenir des ajustements) => text
@@ -43,12 +43,12 @@ PWA website to list and search in cooking recipes
 ### Back office:
 
 - se loguer => réutiliser weather V3
-- Même app
+- Même app V1
 - créer/modifier une recette V1
 - éditer les hiérarchies de type V2
-- mobile
+- mobile V1
 - un tenant par user V3
-- thème jaune
+- thème jaune V1
 
 ### Epic Roadmap
 
