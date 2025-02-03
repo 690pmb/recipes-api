@@ -1,8 +1,11 @@
 package pmb.recipes.adapter.rest.controller;
 
-import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,18 +16,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+
+import jakarta.validation.Valid;
 import pmb.recipes.adapter.rest.dto.OnCreate;
 import pmb.recipes.adapter.rest.dto.OnEdit;
 import pmb.recipes.adapter.rest.dto.RecipeDto;
+import pmb.recipes.adapter.rest.dto.SearchRecipeDto;
 import pmb.recipes.adapter.rest.exception.NotFoundException;
 import pmb.recipes.domain.service.RecipeService;
 
 @Validated
 @RestController
-@RequestMapping(
-    value = "/recipes",
-    consumes = MediaType.APPLICATION_JSON_VALUE,
-    produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/recipes", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 public class RecipeController {
 
   private final RecipeService recipeService;
@@ -54,9 +57,8 @@ public class RecipeController {
     return recipeService
         .edit(recipeDto)
         .orElseThrow(
-            () ->
-                new NotFoundException(
-                    String.format("Recipe with id '%s' not found", recipeDto.id())));
+            () -> new NotFoundException(
+                String.format("Recipe with id '%s' not found", recipeDto.id())));
   }
 
   @DeleteMapping("/{id}")
@@ -64,4 +66,11 @@ public class RecipeController {
   public void delete(@PathVariable Long id) {
     recipeService.delete(id);
   }
+
+  @GetMapping("/search")
+  public ResponseEntity<Page<RecipeDto>> search(@RequestBody @Valid SearchRecipeDto search,
+      @PageableDefault(size = 10, sort = "title") Pageable pageable) {
+    return ResponseEntity.ok(recipeService.search(search, pageable));
+  }
+
 }
