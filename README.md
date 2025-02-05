@@ -32,6 +32,7 @@ PWA website to list and search in cooking recipes
 
 - [ ] photo: de la recette (scraping ?), du resultat
 - [ ] par ingrédient principal: haricot rouge, pois chiche..
+- [ ] gérer des variations de recettes (quiche mais pas au poireaux mais à la patate douce)
 
 ### Details page:
 
@@ -58,6 +59,13 @@ PWA website to list and search in cooking recipes
     - Put
     - Delete
     - Basic Search
+- Basic Recipes Web:
+    - empty shell app, theme, angular update
+    - List of recipes
+        - 5 columns, sorting, search, pagination
+    - view recipe => ux/ui ?
+    - create/edit => form ux ?
+    - delete
 - Hierarchies API:
     - Get
     - Post
@@ -118,9 +126,12 @@ PWA website to list and search in cooking recipes
 
 ### Technical Roadmap
 
-- Integration tests
-    - with testcontainers
-    - with Bruno
+- Tests
+    - with testcontainers => repository test ?
+    https://www.younup.fr/blog/tests-integration-avec-springboot-docker-testcontainers
+    https://www.baeldung.com/spring-dynamicpropertysource
+    - with Bruno => github action
+    - Cypress
 - Spring native
 - elastic search
 - authentication
@@ -137,11 +148,10 @@ They are located in the [bruno folder](./bruno).
 To install Bruno and Xunit Viewer:
 
 ```shell
-npm install -g @usebruno/cli
-npm i -g xunit-viewer
+npm i -g @usebruno/cli xunit-viewer
 ```
 
-To run tests on the _Local_ environment and generate the html report:
+To run tests on the _Local_ environment (the application must be started) and generate the html report:
 
 ```shell
 cd bruno
@@ -154,9 +164,10 @@ xunit-viewer -r results.xml -o test-report.html
 In the _bruno_folder_ you will find:
 
 - _bruno.json_ Bruno configuration file
-- _collection_: configuration for the collection
-- for each request:
+- _collection.bru_: variables for the collection
+- for each endpoint:
     - bru files: the request to send
-    - schema json files: json schema to validate responses
+    - schema json files: json schema to validate responses (optional)
+    - endpoint-name.json file: data file to use as body
 - report folder
 - environments folder: configuration for each environment (_Local_ and _Dev_)
